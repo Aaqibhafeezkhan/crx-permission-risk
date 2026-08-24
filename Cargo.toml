@@ -1,12 +1,12 @@
 [package]
 name = "crx-permission-risk"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 description = "Classify Chrome/Chromium extension permissions into risk tiers with plain-English rationale."
 homepage = "https://zovo.one/"
 repository = "https://github.com/theluckystrike/crx-permission-risk"
-documentation = "https://docs.rs/crx-permission-risk"
+documentation = "https://zovo.one/permissions"
 keywords = ["chrome", "extension", "permissions", "security", "manifest"]
 categories = ["parsing"]
 readme = "README.md"
