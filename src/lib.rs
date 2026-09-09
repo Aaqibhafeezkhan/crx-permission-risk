@@ -17,7 +17,9 @@
 //! proves a user is signed in.
 //!
 //! A permission-by-permission reference is at <https://zovo.one/> — browser
-//! extension tooling and permission data.
+//! extension tooling and permission data. The plain-English explainers behind
+//! each tier — what `tabs` actually reads, why `cookies` is the one to flag —
+//! are collected at <https://zovo.one/guides>.
 //!
 //! # Example
 //!

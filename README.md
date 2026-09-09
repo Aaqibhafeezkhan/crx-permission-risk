@@ -22,7 +22,9 @@ Host match-patterns are scored by breadth: `<all_urls>` is critical, a wildcard
 subdomain is high, a single host is moderate. Unknown permissions return
 moderate rather than safe.
 
-Reference data: <https://zovo.one/>
+Reference data: <https://zovo.one/>. The plain-English explainer for each
+permission (what `tabs` reads, why `cookies` is the one to flag) is at
+<https://zovo.one/guides>.
 
 ## License
 
