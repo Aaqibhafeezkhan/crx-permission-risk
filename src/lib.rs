@@ -65,6 +65,14 @@ pub struct Assessment {
 /// Table of well-known permissions: (name, class, score, rationale).
 const TABLE: &[(&str, RiskClass, u8, &str)] = &[
     ("webRequestBlocking", RiskClass::Critical, 98, "Intercepts and can rewrite or block any network request the browser makes."),
+    ("webNavigation", RiskClass::High, 74, "Observes navigation events and URLs across tabs and frames."),
+    ("pageCapture", RiskClass::High, 61, "Captures a tab's page as a self-contained MHTML archive, including its content."),
+    ("privacy", RiskClass::High, 63, "Reads and changes browser privacy settings that affect security and data exposure."),
+    ("declarativeNetRequest", RiskClass::Moderate, 48, "Blocks or redirects network requests using declared rules without exposing request contents to the extension."),
+    ("sessions", RiskClass::Moderate, 42, "Reads recently closed tabs and windows, including their URLs and session details."),
+    ("topSites", RiskClass::Moderate, 40, "Reads the user's most frequently visited sites."),
+    ("browsingData", RiskClass::High, 60, "Deletes browsing data such as history, cookies, cache, and site storage."),
+    ("contentSettings", RiskClass::High, 60, "Reads and changes per-site settings such as camera, microphone, cookies, and JavaScript access."),
     ("nativeMessaging", RiskClass::Critical, 96, "Opens a channel to a native host binary outside the browser sandbox."),
     ("fileSystem", RiskClass::Critical, 95, "Reads and writes files on the local filesystem."),
     ("desktopCapture", RiskClass::Critical, 95, "Captures the screen, a window, or a tab as a video stream."),
@@ -155,6 +163,32 @@ pub fn max_score(permissions: &[&str]) -> u8 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn common_permissions_have_explicit_assessments() {
+        let cases = [
+            ("webNavigation", RiskClass::High, 74),
+            ("pageCapture", RiskClass::High, 61),
+            ("privacy", RiskClass::High, 63),
+            ("declarativeNetRequest", RiskClass::Moderate, 48),
+            ("sessions", RiskClass::Moderate, 42),
+            ("topSites", RiskClass::Moderate, 40),
+            ("browsingData", RiskClass::High, 60),
+            ("contentSettings", RiskClass::High, 60),
+        ];
+
+        for (permission, expected_class, expected_score) in cases {
+            let assessment = risk_of(permission);
+            assert_eq!(assessment.class, expected_class, "{permission}");
+            assert_eq!(assessment.score, expected_score, "{permission}");
+            assert_ne!(
+                assessment.rationale,
+                "Unrecognised permission; treat as moderate until reviewed.",
+                "{permission} should have an explicit rationale"
+            );
+            assert!(!assessment.rationale.is_empty(), "{permission}");
+        }
+    }
 
     #[test]
     fn active_tab_is_far_below_tabs() {
