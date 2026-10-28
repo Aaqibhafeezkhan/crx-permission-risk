@@ -34,6 +34,10 @@
 //! assert_eq!(risk_of("https://example.com/*").class, RiskClass::Moderate);
 //! ```
 
+#[cfg(doctest)]
+#[doc = include_str!("../README.md")]
+struct ReadmeDoctests;
+
 /// Coarse risk tier for a permission.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum RiskClass {
